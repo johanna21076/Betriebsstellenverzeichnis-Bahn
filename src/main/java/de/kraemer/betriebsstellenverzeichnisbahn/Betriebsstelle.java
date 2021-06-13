@@ -1,16 +1,14 @@
 package de.kraemer.betriebsstellenverzeichnisbahn;
 
 import com.opencsv.bean.CsvBindByName;
-import com.opencsv.bean.CsvBindByPosition;
-
-
 
 /**
- * die Klasse Betriebsstelle erstellt ein Objekt von sich mit allen nötigen Informationen, die in dieser Zeile vorhanden sind
+ * Die Klasse Betriebsstelle enthält alle nötigen Informationen,
+ * die in einer Zeile der csv-Datei vorhanden sind.
  */
 public class Betriebsstelle {
 
-    //Variablen
+    //Variablen (vorgegeben in der csv-Datei)
     @CsvBindByName(column = "Abk")
     private String abk;
 
@@ -30,16 +28,16 @@ public class Betriebsstelle {
     private String primary_location;
 
     @CsvBindByName(column = "UIC")
-    private int uic;
+    private String uic;
 
     @CsvBindByName(column = "RB")
-    private int rb;
+    private String rb;
 
     @CsvBindByName(column = "gültig von")
-    private int gueltig_von;
+    private String gueltig_von;
 
     @CsvBindByName(column = "gültig bis")
-    private int gueltig_bis;
+    private String gueltig_bis;
 
     @CsvBindByName(column = "Netz-Key")
     private String netzkey;
@@ -50,12 +48,30 @@ public class Betriebsstelle {
     @CsvBindByName(column = "Fpl-Gr")
     private String fpl_gr;
 
-    public Betriebsstelle(){
+    public Betriebsstelle() {
 
     }
 
+    /**
+     * Konstruktor
+     * erstellt ein Objekt Betriebsstelle mit allen vorhandenen Daten
+     *
+     * @param abk Abkürzung
+     * @param name Name
+     * @param kurzname Kurzname
+     * @param typ Zur Abk. gehörende Bahnstellenarten
+     * @param betr_zust Betriebszustand
+     * @param primary_location Eindeutige Nr. innerhalb Europa
+     * @param uic  UIC RICS code
+     * @param rb Zuständiger Regionalbereich Netz, nur für Örtlichkeiten der DB Netz AG
+     * @param gueltig_von im Format YYYYMMDD
+     * @param gueltig_bis im Format YYYYMMDD. Bleibt frei, wenn keine Begrenzung vorliegt.
+     * @param fpl_rel Fahrplanrelevanz – dies ist eine im Fahrplan bestellbare Örtlichkeit – im Ausland nur ausnahmsweise gekennzeichnet
+     * @param fpl_gr Fahrplanbearbeitungsgrenze – im Ausland nur ausnahmsweise gekennzeichnet
+     */
+
     public Betriebsstelle(String abk, String name, String kurzname, String typ, String betr_zust, String primary_location,
-                          int uic, int rb, int gueltig_von, int gueltig_bis, String fpl_rel, String fpl_gr) {
+                          String uic, String rb, String gueltig_von, String gueltig_bis, String netz_key, String fpl_rel, String fpl_gr) {
         this.abk = abk;
         this.name = name;
         this.kurzname = kurzname;
@@ -70,7 +86,9 @@ public class Betriebsstelle {
         this.fpl_gr = fpl_gr;
     }
 
-    //Getter und Setter
+    /**
+     * Getter und Setter der Variablen
+     */
 
     public String getAbk() {
         return abk;
@@ -120,36 +138,49 @@ public class Betriebsstelle {
         this.primary_location = primary_location;
     }
 
-    public int getUic() {
+    public String getUic() {
         return uic;
     }
 
-    public void setUic(int uic) {
+    public void setUic(String uic) {
         this.uic = uic;
     }
 
-    public int getRb() {
+    public String getRb() {
         return rb;
     }
 
-    public void setRb(int rb) {
+    public void setRb(String rb) {
         this.rb = rb;
     }
 
-    public int getGueltig_von() {
+    public String getGueltig_von() {
         return gueltig_von;
     }
 
-    public void setGueltig_von(int gueltig_von) {
+    public void setGueltig_von(String gueltig_von) {
         this.gueltig_von = gueltig_von;
     }
 
-    public int getGueltig_bis() {
+    public String getGueltig_bis() {
         return gueltig_bis;
     }
 
-    public void setGueltig_bis(int gueltig_bis) {
+    public void setGueltig_bis(String gueltig_bis) {
         this.gueltig_bis = gueltig_bis;
+    }
+
+
+    public String getNetzkey() {
+        return netzkey;
+    }
+
+    public void setNetzkey(String netzkey) {
+        this.netzkey = netzkey;
+    }
+
+    public void setFpl_gr(String fpl_gr) {
+        this.fpl_gr = fpl_gr;
     }
 
     public String getFpl_rel() {
@@ -162,10 +193,6 @@ public class Betriebsstelle {
 
     public String getFpl_gr() {
         return fpl_gr;
-    }
-
-    public void setFpl_gr(String fpl_gr) {
-        this.fpl_gr = fpl_gr;
     }
 
     @Override
