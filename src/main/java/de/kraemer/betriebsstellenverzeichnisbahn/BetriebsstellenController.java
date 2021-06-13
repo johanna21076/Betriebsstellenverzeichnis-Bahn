@@ -7,8 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -27,8 +26,9 @@ public class BetriebsstellenController {
      */
     public BetriebsstellenController() throws IOException {
         ClassPathResource res = new ClassPathResource("static/DBNetz-Betriebsstellenverzeichnis-Stand2018-04.csv");
+        InputStream stream = res.getInputStream();
 
-        List<Betriebsstelle> betriebsstellenliste = new CsvToBeanBuilder<Betriebsstelle>(new FileReader(res.getFile()))
+        List<Betriebsstelle> betriebsstellenliste = new CsvToBeanBuilder<Betriebsstelle>(new BufferedReader(new InputStreamReader(stream)))
                 .withType(Betriebsstelle.class)
                 .withSeparator(';')
                 .build()
